@@ -8,7 +8,7 @@ public class FruitSpawner : MonoBehaviour
     float right = 5f;
     float speed;
 
-    float spawn_time = 8f;
+    float spawn_time = 5f;
     float spawn_timer = 0f;
 
     float progressScale = 0.01f;
