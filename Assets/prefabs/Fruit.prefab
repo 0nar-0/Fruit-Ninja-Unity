@@ -65,7 +65,7 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -99,6 +99,9 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   slicedFruitPrefab: {fileID: 4952788903804553333, guid: 1d4ed2afdaf5b454996d20860e5d2849, type: 3}
+  holeFruitPrefab: {fileID: 0}
+  Fruithole: {fileID: 0}
+  isSliced: 0
 --- !u!50 &8508887443292070881
 Rigidbody2D:
   serializedVersion: 5
@@ -125,7 +128,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!1 &8996029057435754792
 GameObject:
   m_ObjectHideFlags: 0

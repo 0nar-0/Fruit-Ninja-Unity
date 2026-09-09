@@ -1,83 +1,66 @@
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class LineTrial : MonoBehaviour
 {
+    [SerializeField] private GameObject slashTrailPrefab;
+    [SerializeField] private float minCuttingVelocity = 1f;
+
     private Rigidbody2D rb;
-    public GameObject slashTrailPrefab;
-    private GameObject currentTrail;
     private CircleCollider2D circleCollider2D;
-    Camera cam;
+    private GameObject currentTrail;
+    private Camera cam;
 
-    Vector2 prevPosition;
+    private Vector2 prevPosition;
+    private Vector2 targetPosition;
     public bool isSlashing = false;
-    public float minCuttingVelocity = 0.001f;
-
 
     void Awake()
     {
         circleCollider2D = GetComponent<CircleCollider2D>();
         circleCollider2D.enabled = false;
-    }
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
         rb = GetComponent<Rigidbody2D>();
         cam = Camera.main;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            StartCutting();
-        } 
-        else if (Input.GetMouseButtonUp(0))
-        {
-            StopCutting();
-        }
+        if (Input.GetMouseButtonDown(0)) StartCutting();
+        else if (Input.GetMouseButtonUp(0)) StopCutting();
 
         if (isSlashing)
-        {
-            UpdateCutting();
-        }
+            targetPosition = cam.ScreenToWorldPoint(Input.mousePosition);
     }
 
-
-    void UpdateCutting()
+    void FixedUpdate()
     {
-        Vector2 newPosition = cam.ScreenToWorldPoint(Input.mousePosition);
-        rb.position = newPosition;
+        if (!isSlashing) return;
 
-        float velocity = (newPosition - prevPosition).magnitude * Time.deltaTime;
-        if (velocity > minCuttingVelocity)
-        {
-            circleCollider2D.enabled = true;
-        }
-        else
-        {
-            circleCollider2D.enabled = false;
-        }
+        float velocity = (targetPosition - prevPosition).magnitude * Time.fixedDeltaTime;
+        circleCollider2D.enabled = velocity > minCuttingVelocity;
+
+        rb.MovePosition(targetPosition);
+        prevPosition = targetPosition;
     }
 
-   void StartCutting()
+    void StartCutting()
     {
         isSlashing = true;
         circleCollider2D.enabled = false;
+        prevPosition = cam.ScreenToWorldPoint(Input.mousePosition);
+        targetPosition = prevPosition;
         currentTrail = Instantiate(slashTrailPrefab, transform);
     }
 
     void StopCutting()
     {
         isSlashing = false;
-        currentTrail.transform.SetParent(null);
-        Destroy(currentTrail,2f);
         circleCollider2D.enabled = false;
+
+        if (currentTrail != null)
+        {
+            currentTrail.transform.SetParent(null);
+            Destroy(currentTrail, 0.05f);
+            currentTrail = null;
+        }
     }
-
-
-
 }

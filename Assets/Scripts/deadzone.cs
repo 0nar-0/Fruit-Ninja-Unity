@@ -16,14 +16,19 @@ public class deadzone : MonoBehaviour
         if (other.tag == "Fruit")
         {
             fruit = other.gameObject;
-            if (fruit.GetComponent<Fruit>().isSliced == false)
+            if (fruit.GetComponent<Fruit>())
             {
-                  onFruitMissed.Invoke();
+                if (fruit.GetComponent<Fruit>().isSliced == false)
+                {
+
+                    onFruitMissed.Invoke();
+                }
             }
+            else
             {
                 Debug.Log("Fruit Missed");
             }
-          
+
             Destroy(other.gameObject);
         }
     }

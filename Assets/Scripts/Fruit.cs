@@ -5,15 +5,18 @@ public class Fruit : MonoBehaviour
 {
    public UnityEvent onSliced;
    public GameObject slicedFruitPrefab;
-
+   public GameObject holeFruitPrefab;
+   public GameObject Fruithole;
    public bool isSliced = false;
 
-    void Start()
-    {
-        onSliced.AddListener(GameObject.FindGameObjectWithTag("Game").GetComponent<Game>().addScore);
-    }
+   void Start()
+   {
+      isSliced = false;
+      onSliced.AddListener(GameObject.FindGameObjectWithTag("Game").GetComponent<Game>().addScore);
+      onSliced.AddListener(() => GameObject.FindGameObjectWithTag("UI").GetComponent<UIManager>().updateScore(1));
+   }
 
-    void OnTriggerEnter2D(Collider2D other)
+   void OnTriggerEnter2D(Collider2D other)
    {
       if (other.tag == "Blade")
       {
@@ -21,8 +24,8 @@ public class Fruit : MonoBehaviour
          isSliced = true;
          onSliced.Invoke();
          Destroy(gameObject);
-         Instantiate(slicedFruitPrefab,transform.position,transform.rotation);
-         Destroy(this.gameObject);
+         Instantiate(slicedFruitPrefab, transform.position, transform.rotation);
+         Destroy(Fruithole);
       }
    }
 }

@@ -35,7 +35,11 @@ public class Game : MonoBehaviour
         isGameOver = true;
         Debug.Log("Game Over");
         spawnerPrefab.SetActive(false);
-        
+        GameObject[] fruits = GameObject.FindGameObjectsWithTag("Fruit");
+        foreach (GameObject fruit in fruits)
+        {
+            Destroy(fruit);
+        }
     }
     
     
