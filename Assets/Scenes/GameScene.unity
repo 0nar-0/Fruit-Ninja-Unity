@@ -374,7 +374,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 203.51459, y: -65.769714}
+  m_AnchoredPosition: {x: 203.51459, y: -38.5}
   m_SizeDelta: {x: 367.0291, y: 61.5394}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &672183823
@@ -399,7 +399,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 59f8f5acc23a1458db37f4ec7568999d, type: 3}
-    m_FontSize: 52
+    m_FontSize: 28
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -419,6 +419,63 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 672183821}
   m_CullTransparentMesh: 1
+--- !u!1001 &704511346
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 8543818485043396447, guid: dc6177df1c1774373b07439319a0c949, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8543818485043396447, guid: dc6177df1c1774373b07439319a0c949, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8543818485043396447, guid: dc6177df1c1774373b07439319a0c949, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8543818485043396447, guid: dc6177df1c1774373b07439319a0c949, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8543818485043396447, guid: dc6177df1c1774373b07439319a0c949, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8543818485043396447, guid: dc6177df1c1774373b07439319a0c949, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8543818485043396447, guid: dc6177df1c1774373b07439319a0c949, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8543818485043396447, guid: dc6177df1c1774373b07439319a0c949, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8543818485043396447, guid: dc6177df1c1774373b07439319a0c949, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8543818485043396447, guid: dc6177df1c1774373b07439319a0c949, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9083826896123371390, guid: dc6177df1c1774373b07439319a0c949, type: 3}
+      propertyPath: m_Name
+      value: LevelLoader
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: dc6177df1c1774373b07439319a0c949, type: 3}
 --- !u!1 &998304158
 GameObject:
   m_ObjectHideFlags: 0
@@ -450,6 +507,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   bladePrefab: {fileID: 4920255987743405785, guid: 346dabe9ae09649c7989b0215bb192f2, type: 3}
   spawnerPrefab: {fileID: 0}
+  LevelLoader: {fileID: 0}
   score: 0
   lives: 3
 --- !u!4 &998304160
@@ -477,6 +535,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1171804590}
   - component: {fileID: 1171804591}
+  - component: {fileID: 1171804592}
   m_Layer: 0
   m_Name: FruitSpawner
   m_TagString: Spawner
@@ -511,8 +570,109 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3125ba9bf28c401eb9ed41a5ebf4274, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  fruitPrefabs: {fileID: 8194925994792429505, guid: 7fa1fd6b2af5342e0b966c26459987d9, type: 3}
-  fruitForce: 17
+  spawnObjects:
+  - prefab: {fileID: 8194925994792429505, guid: 7fa1fd6b2af5342e0b966c26459987d9, type: 3}
+    weight: 90
+  - prefab: {fileID: 4437567017915961283, guid: 4ef0dcd5d1f764d4d82cd29cbc0da013, type: 3}
+    weight: 10
+  fruitSpawnSound: {fileID: 1171804592}
+--- !u!82 &1171804592
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1171804589}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 8300000, guid: 529083eef3ed54637ac5ca513aae8830, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1410890447
 GameObject:
   m_ObjectHideFlags: 0
@@ -732,7 +892,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.CanvasScaler
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
@@ -804,6 +964,7 @@ MonoBehaviour:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 704511346}
   - {fileID: 519420032}
   - {fileID: 619394802}
   - {fileID: 1485795607}

@@ -9,6 +9,8 @@ TagManager:
   - Game
   - Spawner
   - UI
+  - Bomb
+  - LevelLoader
   layers:
   - Default
   - TransparentFX
@@ -17,7 +19,7 @@ TagManager:
   - Water
   - UI
   - Fruit
-  - 
+  - Bomb
   - 
   - 
   - 

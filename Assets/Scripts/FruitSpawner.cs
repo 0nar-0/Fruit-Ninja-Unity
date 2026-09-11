@@ -2,7 +2,12 @@ using UnityEngine;
 
 public class FruitSpawner : MonoBehaviour
 {
-    [SerializeField] GameObject fruitPrefabs;
+    [System.Serializable]
+    public class SpawnObject
+    {
+        public GameObject prefab;
+        public float weight = 1f;
+    }
 
     float left = -5f;
     float right = 5f;
@@ -14,72 +19,101 @@ public class FruitSpawner : MonoBehaviour
     float progressScale = 0.01f;
     float scale;
 
-    [SerializeField] float fruitForce = 5f;
+    public SpawnObject[] spawnObjects;
 
+    public AudioSource fruitSpawnSound;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         speed = left;
         spawn_timer = spawn_time;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        move();
-        if(spawn_timer <= 0)
+        // move();
+
+        if (spawn_timer <= 0)
         {
-            // check scale and to get how many fruits need to be spawned
-            // spawn fruits based on the scale value
             spawn_timer = spawn_time;
+
             int fruitCount = checkScale();
+
             for (int i = 0; i < fruitCount; i++)
             {
-                GameObject fruit = Instantiate(fruitPrefabs, new Vector3(Random.Range(left, right), -10f, 0f), Quaternion.identity);
-                fruit.GetComponent<Rigidbody2D>().AddForce(Vector2.up * Random.Range(14f, 16f), ForceMode2D.Impulse);
+                GameObject spawnObject = getSpawnObject();
+
+                GameObject fruit = Instantiate(
+                    spawnObject,
+                    new Vector3(Random.Range(left, right), -10f, 0f),
+                    Quaternion.identity
+                );
+
+                fruit.GetComponent<Rigidbody2D>().AddForce(
+                    Vector2.up * Random.Range(14f, 16f),
+                    ForceMode2D.Impulse
+                );
+
+                Debug.Log("Spawned object " + fruit.name);
             }
+
             updateScale();
-            Debug.Log("Spawned " + fruitCount + " fruits");
+            fruitSpawnSound.Play();
         }
         else
         {
             spawn_timer -= Time.deltaTime;
         }
-
-        Debug.Log("Scale: " + scale);
     }
-    
-    void move()
+
+    GameObject getSpawnObject()
     {
-        transform.position = new Vector3(Mathf.PingPong(Time.time * speed, right - left) + left, transform.position.y, transform.position.z);
+        float totalWeight = 0f;
+
+        foreach (SpawnObject spawnObject in spawnObjects)
+        {
+            totalWeight += spawnObject.weight;
+        }
+
+        float randomWeight = Random.Range(0f, totalWeight);
+
+        foreach (SpawnObject spawnObject in spawnObjects)
+        {
+            randomWeight -= spawnObject.weight;
+
+            if (randomWeight <= 0)
+            {
+                return spawnObject.prefab;
+            }
+        }
+
+        return spawnObjects[spawnObjects.Length - 1].prefab;
     }
 
     void updateScale()
     {
         scale += progressScale * 2;
-        print("Scale: " + scale);
         spawn_time = Mathf.Clamp(spawn_time - scale, 2f, 5f);
     }
-    
+
     int checkScale()
     {
         if (scale < 0.01f)
         {
             return 1;
         }
-        else if (scale < .03f)
+        else if (scale < 0.05f)
         {
             return Random.Range(1, 3);
         }
         else if (scale < 1f)
         {
-            return Random.Range(3, 5);
+            return Random.Range(1, 4);
         }
         else
         {
-            return Random.Range(1, 5);
+            return Random.Range(2, 4);
         }
     }
-
 }
+

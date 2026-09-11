@@ -20,16 +20,18 @@ public class deadzone : MonoBehaviour
             {
                 if (fruit.GetComponent<Fruit>().isSliced == false)
                 {
-
                     onFruitMissed.Invoke();
                 }
             }
-            else
-            {
-                Debug.Log("Fruit Missed");
-            }
 
             Destroy(other.gameObject);
+        } else if (other.tag == "Bomb")
+        {
+            Destroy(other.gameObject);
+        }
+        else
+        {
+            Debug.Log("Fruit Missed");
         }
     }
 
